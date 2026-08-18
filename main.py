@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from models.base import Base
+from fastapi.middleware.cors import CORSMiddleware
 from core.database import engine
 
 from api.routes.user import router as user_router
@@ -20,6 +21,14 @@ app = FastAPI(
     description="traceo backend system",
     version="1.0.0",
     lifespan=lifespan
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all websites/origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
 )
 
 @app.get("/")

@@ -64,4 +64,7 @@ def get_current_user(token : str = Depends(oauth2_scheme), db : Session = Depend
     if user is None:
         raise creadential_exception
         
-    return user
+    return {
+        "token" : token,
+        "data" : user
+    }
